@@ -1,0 +1,156 @@
+{
+    "snippets": [
+        [
+            {
+                "title": "Favourites",
+                "icon": "ai-star icon",
+                "language": "",
+                "content": "",
+                "code": "",
+                "key": "item1"
+            },
+            {
+                "title": "Recents",
+                "icon": "ai-clock icon",
+                "language": "",
+                "content": "",
+                "code": "",
+                "key": "item2"
+            },
+            {
+                "title": "Search",
+                "icon": "ai-search icon",
+                "language": "",
+                "content": "",
+                "code": "",
+                "key": "item3"
+            }
+        ],
+        [
+            {
+                "title": "Hide Scrollbar",
+                "icon": "ai-hashtag icon blue",
+                "language": "CSS",
+                "content": "",
+                "code": "",
+                "key": "item4"
+            },
+            {
+                "title": "Test",
+                "icon": "ai-hashtag icon blue",
+                "language": "CSS",
+                "content": "",
+                "code": "",
+                "key": "item5"
+            },
+            {
+                "title": "Variable",
+                "icon": "ai-hashtag icon blue",
+                "language": "CSS",
+                "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                "code": "// Hello World\n\tconsole.log('Hello, World!');\n\nfunction() {\n\t// Do something\n\tconsole.log('Do something');\n}",
+                "key": "item6"
+            }
+        ],
+        [
+            {
+                "title": "Placeholder",
+                "icon": "ai-html-fill icon orange",
+                "language": "HTML",
+                "content": "",
+                "code": "",
+                "key": "item7"
+            },
+            {
+                "title": "Test",
+                "icon": "ai-html-fill icon orange",
+                "language": "HTML",
+                "content": "",
+                "code": "",
+                "key": "item8"
+            }
+        ],
+        [
+            {
+                "title": "Placeholder",
+                "icon": "fab fa-java icon fa-icon orange",
+                "language": "Java",
+                "content": "",
+                "code": "",
+                "key": "item9"
+            },
+            {
+                "title": "Placeholder",
+                "icon": "fab fa-java icon fa-icon orange",
+                "language": "Java",
+                "content": "",
+                "code": "",
+                "key": "item10"
+            }
+        ],
+        [
+            {
+                "title": "Indentation",
+                "icon": "fab fa-js-square icon fa-icon gold",
+                "language": "JavaScript",
+                "content": "A test to see if indentation works correctly",
+                "code": "Test\n   Hello\nHow are you",
+                "key": "item11"
+            },
+            {
+                "title": "On Click",
+                "icon": "fab fa-js-square icon fa-icon gold",
+                "language": "JavaScript",
+                "content": "The simplest way to add an onclick function to an element programmatically using vanilla JavaScript",
+                "code": "element.onclick = function() { \n   alert('blah');\n};\n",
+                "key": "item12"
+            }
+        ],
+        [
+            {
+                "title": "Placeholder",
+                "icon": "ai-python-fill icon green",
+                "language": "Python",
+                "content": "",
+                "code": "",
+                "key": "item13"
+            },
+            {
+                "title": "Placeholder",
+                "icon": "ai-python-fill icon green",
+                "language": "Python",
+                "content": "",
+                "code": "",
+                "key": "item14"
+            }
+        ],
+        [
+            {
+                "title": "Placeholder",
+                "icon": "fab fa-swift icon fa-icon orange",
+                "language": "Swift",
+                "content": "",
+                "code": "",
+                "key": "item15"
+            },
+            {
+                "title": "Placeholder",
+                "icon": "fab fa-swift icon fa-icon orange",
+                "language": "Swift",
+                "content": "",
+                "code": "",
+                "key": "item16"
+            }
+        ],
+        [
+            {
+                "title": "Placeholder",
+                "icon": "fas fa-file-alt icon fa-icon",
+                "language": "Other",
+                "content": "",
+                "code": "",
+                "key": "item17"
+            }
+        ]
+    ]
+}

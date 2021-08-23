@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark light">
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://unpkg.com/akar-icons-fonts"></script>
+        <script
+            src="https://kit.fontawesome.com/ace550d1e7.js"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="script.js"></script>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="Assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon-16x16.png">
+        <link rel="manifest" href="Assets/site.webmanifest">
+        <title>Codelog</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="sidebar">
+                <div id="sidebar-header">
+                    <i class="ai-plus header-icon" onclick="toggleNewPane()"></i>
+                    <h3 id="header-title">Snippets</h3>
+                    <h4 onclick="exportJSON()">Export</h4>
+                </div>
+                <div id="sidebar-grid">
+                    <h1 id="sidebar-title">Snippets</h1>
+                </div>
+            </div>
+
+            <div id="main">
+                <div id="snippet">
+                    <div id="main-header">
+                        <h1 id="snippet-title">Placeholder</h1>
+                        <i class="ai-edit edit-icon" onclick="toggleEditPane()"></i>
+                    </div>
+                    <p id="description-block" contenteditable="false" spellcheck="false" class="description">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                        sed diam nonumy eirmod tempor invidunt ut labore et
+                        dolore magna aliquyam erat, sed diam voluptua. At vero
+                        eos et accusam et justo duo dolores et ea rebum. Stet
+                        clita kasd gubergren, no sea takimata sanctus est Lorem
+                        ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+                        consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat,
+                        sed diam voluptua. At vero eos et accusam et justo duo
+                        dolores et ea rebum. Stet clita kasd gubergren, no sea
+                        takimata sanctus est Lorem ipsum dolor sit amet.
+                    </p>
+                    <div id="code-block">
+                        <pre><p id="code" class="code">// Hello World
+console.log(“Hello, World!”);
+
+function() {
+    // Do something
+    console.log(“Do something”);
+}</p></pre>
+                        <i class="ai-copy copy-icon" onclick="copyText()"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="tooltip" class="tooltip hide">Copied Code</div>
+            <div id="edit" class="hide">
+                <div id="edit-flex">
+                    <div id="edit-title">
+                        <input type="text" id="edit-input" name="title">
+                    </div>
+                    <div id="edit-icons">
+                        <i class="fas fa-save save-icon" onclick="toggleEditPane(true)"></i>
+                        <i class="ai-cross quit-icon" onclick="toggleEditPane()"></i>
+                    </div>
+                </div>
+                <textarea name="description" id="edit-textarea1"></textarea>
+                <textarea name="code" id="edit-textarea2"></textarea>
+            </div>
+        </div>
+    </body>
+</html>

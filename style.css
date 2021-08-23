@@ -1,0 +1,443 @@
+:root {
+    --sidebar-width: 324px;
+    --snippet-width: 828px;
+    --snippet-padding-left: 70px;
+
+    --text-colour: #000000;
+    --seperator-colour: rgba(60, 60, 67, 36%);
+    --seperator-light: rgba(60, 60, 67, 25%);
+    --sidebar-colour: #F2F2F7;
+    --code-block-colour: #F2F2F7;
+    --background-colour: #ffffff;
+    --clear: rgba(0,0,0,0);
+    --accent: #007AFF;
+    --blue: #007AFF;
+    --red: #f40e38;
+    --orange: #E0623B;
+    --gold: rgb(255, 166, 0);
+    --green: #0f7102;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--text-colour);
+}
+
+body {
+    background-color: var(--background-colour);
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 81px 0 7px 8px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 0 8px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 17px;
+    color: var(--sidebar-colour);
+    transition: 0.2s ease-in-out;
+}
+
+h4 {
+    margin: 0 24px 0 0;
+    font-weight: normal;
+    font-size: 17px;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.header-icon {
+    display: block;
+    font-size: 22px;
+    padding: 42px 0px 0px 24px;
+    color: var(--accent);
+    /* color: black; */
+    cursor: pointer;
+}
+
+.icon {
+    display: block;
+    font-size: 22px;
+    margin: 9px 9px 8px 8px;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.icon-right {
+    font-size: 22px;
+    /* color: rgba(60, 60, 67, 60%); */
+    color: var(--accent);
+}
+
+.fa-icon {
+    margin: 11.5px 9px 8px 8px;
+}
+
+.orange {
+    color: var(--orange);
+}
+
+.gold {
+    color: var(--gold);
+}
+
+.blue {
+    color: var(--blue);
+}
+
+.green {
+    color: var(--green);
+}
+
+p {
+    align-self: center;
+    font-weight: normal;
+    font-size: 17px;
+}
+
+#wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    overflow: hidden;
+}
+
+#sidebar {
+    background-color: var(--sidebar-colour);
+    border-right: 0.5px solid var(--seperator-colour);
+}
+
+#sidebar-header {
+    width: calc(var(--sidebar-width) - 0.5px);
+    height: 74px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    border-right: 0.5px solid var(--seperator-colour);
+    /* border-bottom: 1px solid rgba(60, 60, 67, 36%); */
+    position: fixed;
+}
+
+#sidebar-grid {
+    width: calc(100% - 32px);
+    height: calc(100vh - 32px);
+    /* display: flex; */
+    flex-direction: column;
+    /* background-color: red; */
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.item {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+.active {
+    background-color: var(--accent);
+    color: white !important;
+}
+
+.active .icon {
+    color: white !important;
+}
+
+.active p {
+    color: white !important;
+}
+
+.inactive p {
+    background-color: var(--clear);
+
+}
+
+.item:hover {
+    /* background-color: var(--blue); */
+    cursor: pointer;
+}
+
+.title {
+    width: 100%;
+    height: 45px;
+    margin-top: 9px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: none;
+}
+
+.title:hover {
+    cursor: pointer;
+}
+
+.group.hide {
+    display: none;
+}
+
+.group.show {
+    display: block;
+}
+
+.chevron-right {
+    border-bottom: 0.5px solid var(--seperator-colour);
+}
+
+.chevron-right i {
+    transform: rotate(-90deg);
+}
+
+#main {
+    background-color: var(--background-colour);
+}
+
+#snippet {
+    width: var(--snippet-width);
+    /* background-color: red; */
+    margin: 97px 0 0 var(--snippet-padding-left);
+}
+
+#main-header {
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--seperator-light);
+}
+
+#snippet-title {
+    margin: 0;
+}
+
+.edit-icon {
+    display: block;
+    font-size: 22px;
+    margin: 12px 10px 8px 8px;
+    cursor: pointer;
+}
+
+.description {
+    font-size: 16px;
+    margin-top: 24px;
+    line-height: 24px;
+}
+
+#code-block {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--code-block-colour);
+    border-radius: 9px;
+}
+
+.code {
+    display: block;
+    padding: 12px 18px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.copy-icon {
+    display: block;
+    font-size: 18px;
+    margin: 12px 10px 0 0;
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+    height: max-content;
+}
+
+.copy-icon:hover {
+    color: var(--text-colour)
+}
+
+.tooltip {
+    position: absolute;
+    left: calc(50% - 60px);
+    top: 10px;
+    display: block;
+    width: 120px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #272727;
+    color: white;
+    /* box-shadow: 0 0px 10px rgba(0,0,0,25%); */
+    visibility: visible;
+    transition: 1s ease-in-out;
+}
+
+.tooltip.hide {
+    top: -100px;
+    transition: 1s ease-in-out;
+    visibility: hidden;
+}
+
+#edit {
+    position: absolute;
+    height: auto;
+    max-height: 80vh;
+    width: calc(var(--snippet-width));
+    left: calc(var(--sidebar-width) + var(--snippet-padding-left));
+    top: 97px;
+    /* padding: 16px; */
+    overflow: auto;
+    border-radius: 10px;
+    /* border: 0.5px solid var(--seperator-light); */
+    background-color: var(--background-colour);
+    /* box-shadow: 0 5px 15px rgba(0,0,0,26%); */
+    scrollbar-width: none;
+}
+
+#edit.hide {
+    visibility: hidden;
+}
+
+#edit.show {
+    visibility: visible;
+}
+
+#edit-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#edit-title {
+    /* border: 0.5px solid var(--seperator-light); */
+    border-radius: 10px;
+}
+
+#edit-title input {
+    margin: 0;
+    padding-left: 10px;
+    width: 350px;
+    height: 100%;
+    background-color: var(--sidebar-colour);
+    box-shadow: none;
+    border: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-size: 34px;
+    font-weight: bold;
+    outline: none;
+}
+
+#edit-icons {
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+}
+
+#edit-icons .copy-icon {
+    margin: 0 10px 0 0;
+    color: rgb(132, 132, 132);
+}
+
+#edit-icons .copy-icon:hover {
+    color: var(--text-colour);
+}
+
+#edit textarea {
+    margin: 24px 0 0 0;
+    width: calc(var(--snippet-width) - 12px);
+    max-width: calc(var(--snippet-width) - 12px);
+    height: calc(24px * 8);
+    padding: 6px;
+    background-color: var(--sidebar-colour);
+    box-shadow: none;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#edit-textarea1 {
+    line-height: 24px;
+}
+
+#edit-textarea2 {
+    line-height: 24px;
+    font-family: monospace !important;
+    font-size: 13px !important;
+}
+
+.save-icon {
+    display: block;
+    font-size: 18px;
+    margin: 2px 10px 0 0;
+    color: rgb(132, 132, 132);
+    cursor: pointer;
+    height: max-content;
+}
+
+.save-icon:hover {
+    color: var(--text-colour);
+}
+
+.quit-icon {
+    display: block;
+    font-size: 18px;
+    margin: 0 0 0 0;
+    color: rgb(132, 132, 132);
+    cursor: pointer;
+    height: max-content;
+}
+
+.quit-icon:hover {
+    color: var(--text-colour);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-colour: #ffffff;
+        --seperator-colour: rgba(84, 84, 88, 65%);
+        --seperator-light: rgba(84, 84, 88, 65%);
+        --sidebar-colour: #1C1C1E;
+        --code-block-colour: #1F2122;
+        --background-colour: #000000;
+        --clear: rgba(0,0,0,0);
+        --accent: #007AFF;
+        --blue: #007AFF;
+        --red: #f40e38;
+        --orange: #E0623B;
+        --gold: rgb(255, 166, 0);
+    }
+
+    body {
+        background-color: black;
+    }
+
+    .tooltip {
+        background-color: var(--sidebar-colour);
+    }
+
+}
+
+@media (max-width: 1292px) {
+    :root {
+        --sidebar-width: 25vw;
+        --snippet-width: 64vw;
+        --snippet-padding-left: 5.4vw;
+    }
+}
