@@ -116,7 +116,7 @@ function initSidebarItems(data) {
                 .wrapAll('<div id=group'+ groupID++ +' class="group show"/>');
         });
 
-    console.log('grouped');
+    // console.log('grouped');
 
     var titles = $('div.title');
     // console.log(titles);
