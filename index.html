@@ -4,14 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="dark light">
-        <link rel="stylesheet" href="style.css?v=1.01" />
+        <link rel="stylesheet" href="style.css?v=1.02" />
         <script src="https://unpkg.com/akar-icons-fonts"></script>
         <script
             src="https://kit.fontawesome.com/ace550d1e7.js"
             crossorigin="anonymous"
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="script.js?v=1.0"></script>
+        <script src="script.js?v=1.02"></script>
 
         <link rel="apple-touch-icon" sizes="180x180" href="Assets/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png">
@@ -38,27 +38,9 @@
                         <h1 id="snippet-title">Placeholder</h1>
                         <i class="ai-edit edit-icon" onclick="toggleEditPane()"></i>
                     </div>
-                    <p id="description-block" contenteditable="false" spellcheck="false" class="description">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita kasd gubergren, no sea takimata sanctus est Lorem
-                        ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                        consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua. At vero eos et accusam et justo duo
-                        dolores et ea rebum. Stet clita kasd gubergren, no sea
-                        takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
+                    <p id="description-block" contenteditable="false" spellcheck="false" class="description"></p>
                     <div id="code-block">
-                        <pre><p id="code" class="code">// Hello World
-console.log(“Hello, World!”);
-
-function() {
-    // Do something
-    console.log(“Do something”);
-}</p></pre>
+                        <pre><p id="code" class="code"></p></pre>
                         <i class="ai-copy copy-icon" onclick="copyText()"></i>
                     </div>
                 </div>
@@ -70,12 +52,31 @@ function() {
                         <input type="text" id="edit-input" name="title">
                     </div>
                     <div id="edit-icons">
-                        <i class="fas fa-save save-icon" onclick="toggleEditPane(true)"></i>
+                        <i class="fas fa-trash-alt delete-icon" onclick="toggleEditPane('false')"></i>
+                        <i class="fas fa-save save-icon" onclick="toggleEditPane('true')"></i>
                         <i class="ai-cross quit-icon" onclick="toggleEditPane()"></i>
                     </div>
                 </div>
                 <textarea name="description" id="edit-textarea1"></textarea>
                 <textarea name="code" id="edit-textarea2"></textarea>
+            </div>
+            <div id="new" class="hide">
+                <div id="new-flex">
+                    <div>
+                        <label for="language">Language:</label>
+                        <select name="language" id="language">
+                            <option value="CSS">CSS</option>
+                            <option value="HTML">HTML</option>
+                            <option value="Java">Java</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="Swift">Swift</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <i class="ai-cross quit-icon" onclick="toggleNewPane()"></i>
+                </div>
+                <div id="add-snippet-btn" onclick="toggleNewPane(true)">Add Snippet</div>
             </div>
         </div>
     </body>

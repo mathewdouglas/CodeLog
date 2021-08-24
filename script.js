@@ -13,6 +13,7 @@ var sidebarGrid;
 var activeItem = "item1";
 var storage = window.localStorage;
 var showEdit = false;
+var showNewPane = false;
 var json;
 
 async function getServerJson() {
@@ -209,7 +210,7 @@ function setContent(item, groupIndex) {
     }
 }
 
-
+// Changes the active sidebar item
 function changeActive(id) {
     const selectedItem = document.getElementById(id);
     activeItem = id;
@@ -222,6 +223,7 @@ function changeActive(id) {
     getItemContent(selectedItem.id, selectedItem.parentElement.id);
 }
 
+// Toggles whether language group is expanded or hidden
 function changeHidden(id) {
     if ($('#group'+ id).hasClass("show")) {
         $('#group'+ id).addClass("hide");
@@ -234,35 +236,35 @@ function changeHidden(id) {
     }
 }
 
-
+// Creates and adds item to the sidebar
 function addItem (iconClass, content, id) {
-  // create a new div elements
-  const newDiv = document.createElement("div");
-  const icon = document.createElement("i");
-  const text = document.createElement("p");
+    // Create new elements
+    const newDiv = document.createElement("div");
+    const icon = document.createElement("i");
+    const text = document.createElement("p");
 
-  newDiv.className = "item inactive";
-  newDiv.id = "item" + id;
-  icon.className = iconClass;
+    newDiv.className = "item inactive";
+    newDiv.id = "item" + id;
+    icon.className = iconClass;
 
-  newDiv.onclick = function() { changeActive("item" + id) };
+    newDiv.onclick = function() { changeActive("item" + id) };
 
-  // and give it some content
-  const newContent = document.createTextNode(content);
+    // Give element some content
+    const newContent = document.createTextNode(content);
 
-  // add the text node to the newly created div
-  text.appendChild(newContent);
-  newDiv.appendChild(icon);
-  newDiv.appendChild(text);
+    // Add child elements to the main item div
+    text.appendChild(newContent);
+    newDiv.appendChild(icon);
+    newDiv.appendChild(text);
 
-  // add the newly created element and its content into the DOM
-  const currentDiv = document.getElementById("sidebar-grid");
-  currentDiv.insertBefore(newDiv, null);
+    // Inserts the newly created element and its content into the sidebar
+    const currentDiv = document.getElementById("sidebar-grid");
+    currentDiv.insertBefore(newDiv, null);
 }
 
-
+// Creates and adds title to the sidebar
 function addTitle (content, id) {
-    // create a new title elements
+    // Create a new elements
     const newDiv = document.createElement("div");
     const text = document.createElement("h2");
     const icon = document.createElement("i");
@@ -273,33 +275,34 @@ function addTitle (content, id) {
 
     // newDiv.onclick = function() { changeHidden(id) };
   
-    // and give it some content
+    // Give element some content
     const newContent = document.createTextNode(content);
   
-    // add the text node to the newly created div
+    // Add child elements to the main item div
     text.appendChild(newContent);
     newDiv.appendChild(text);
     newDiv.appendChild(icon);
   
-    // add the newly created element and its content into the DOM
+    // Inserts the newly created element and its content into the sidebar
     const currentDiv = document.getElementById("sidebar-grid");
     currentDiv.insertBefore(newDiv, null);
 }
 
-
+// Adds the code in the code block to users clipboard
 function copyText() {
-    /* Get the text field */
+    // Get the text field
     var text = document.getElementById("code");
   
-     /* Copy the text inside the text field */
+    // Copy the text inside the text field 
     navigator.clipboard.writeText(text.innerText);
 
     showTooltip(3000);
   
-    /* Alert the copied text */
+    // Alert the copied text
     // alert("Copied the text: " + text.innerText);
 }
 
+// Shows the tooltip
 async function showTooltip(length) {
     $('#tooltip').removeClass("hide");
     await new Promise(resolve => setTimeout(resolve, length));
@@ -344,12 +347,14 @@ function toggleEditPane(save) {
         document.getElementById('edit-textarea1').value = document.getElementById('description-block').innerText;
         document.getElementById('edit-textarea2').value = document.getElementById('code').innerText;
     } else {
-        if (save) {
-            // TODO add save to JSON object functionallity
+        if (save === "true") {
             document.getElementById('snippet-title').innerText = document.getElementById('edit-input').value;
             document.getElementById('description-block').innerText = document.getElementById('edit-textarea1').value;
             document.getElementById('code').innerText = document.getElementById('edit-textarea2').value;
             saveEdit();
+        }
+        if (save === "false") {
+            deleteJsonItem();
         }
         $('#edit').addClass("hide");
         $('#edit').removeClass("show");
@@ -357,8 +362,70 @@ function toggleEditPane(save) {
     showEdit = !showEdit;
 }
 
-function toggleNewPane() {
-    console.log("test");
+function toggleNewPane(save) {
+    if (!showNewPane) {
+        $('#new').addClass("show");
+        $('#new').removeClass("hide");
+    } else {
+        if (save) {
+            var lang = document.getElementById("language").value;
+            addJsonItem(lang);
+        }
+        $('#new').addClass("hide");
+        $('#new').removeClass("show");
+    }
+    showNewPane = !showNewPane;
+}
+
+function addJsonItem(language) {
+    var array = json.snippets;
+    var icon = getIcon(language);
+
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        if (element[0].language === language) {
+            json.snippets[i].push({
+                "title": "New Item",
+                "icon": icon,
+                "language": language,
+                "content": "Enter description",
+                "code": "Enter code",
+                "key": ""
+            });
+        }
+    }
+    sortJSON();
+    clearSidebar();
+    initSidebarItems(JSON.stringify(json));
+}
+
+function getIcon(language) {
+    var icon;
+    switch (language) {
+        case "CSS":
+            icon = cssIcon;
+            break;
+        case "HTML":
+            icon = htmlIcon;
+            break;
+        case "Java":
+            icon = javaIcon;
+            break;
+        case "JavaScript":
+            icon = jsIcon;
+            break;
+        case "Python":
+            icon = pythonIcon;
+            break;
+        case "Swift":
+            icon = swiftIcon;
+            break;
+        default:
+            icon = otherIcon;
+            break;
+    }
+
+    return icon;
 }
 
 // Saves edits made in edit pane to JSON Object
@@ -391,9 +458,48 @@ function saveEdit() {
     json.snippets[groupIndex][itemIndex].content = document.getElementById('description-block').innerText;
     json.snippets[groupIndex][itemIndex].code = document.getElementById('code').innerText;
 
-    document.getElementById('sidebar-grid').innerHTML = "<h1 id=\"sidebar-title\">Snippets</h1>\n";
+    sortJSON();
+    clearSidebar();
     updateLocalStorage();
     initSidebarItems(JSON.stringify(json));
+}
+
+// Saves edits made in edit pane to JSON Object
+function deleteJsonItem() {
+    var id;
+    var parentID;
+    var array = document.getElementsByClassName("item");
+    var len = array.length;
+    for (var i = 0; i < len; i++) { 
+        const element = array[i];
+        if (element.className == "item active") {
+            id = element.id;
+            parentID = element.parentElement.id;
+        } 
+    }
+    // Find group index number using regex
+    var groupIndex = parentID.match(/(\d+)/)[0];
+
+    var itemIndex;
+    len = json.snippets[groupIndex].length;
+    for (let i = 0; i < len; i++) {
+        const element = json.snippets[groupIndex][i];
+        if (element.key === id) {
+            // Found element
+            itemIndex = i;
+        }
+    }
+
+    json.snippets[groupIndex].splice(itemIndex, 1);
+
+    sortJSON();
+    clearSidebar();
+    updateLocalStorage();
+    initSidebarItems(JSON.stringify(json));
+}
+
+function clearSidebar() {
+    document.getElementById('sidebar-grid').innerHTML = "<h1 id=\"sidebar-title\">Snippets</h1>\n";
 }
 
 function exportJSON() {

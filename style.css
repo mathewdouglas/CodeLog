@@ -240,6 +240,7 @@ p {
 
 #code-block {
     margin-top: 32px;
+    min-height: 45px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -395,6 +396,19 @@ p {
     color: var(--text-colour);
 }
 
+.delete-icon {
+    display: block;
+    font-size: 18px;
+    margin: 2px 12px 0 0;
+    color: rgb(132, 132, 132);
+    cursor: pointer;
+    height: max-content;
+}
+
+.delete-icon:hover {
+    color: var(--text-colour);
+}
+
 .quit-icon {
     display: block;
     font-size: 18px;
@@ -407,6 +421,58 @@ p {
 .quit-icon:hover {
     color: var(--text-colour);
 }
+
+/* New Pane */
+
+#new {
+    position: absolute;
+    min-height: 80vh;
+    height: auto;
+    max-height: 85vh;
+    width: calc(var(--snippet-width));
+    left: calc(var(--sidebar-width) + var(--snippet-padding-left));
+    top: 97px;
+    /* padding: 16px; */
+    overflow: auto;
+    border-radius: 10px;
+    /* border: 0.5px solid var(--seperator-light); */
+    background-color: var(--background-colour);
+    /* box-shadow: 0 5px 15px rgba(0,0,0,26%); */
+    scrollbar-width: none;
+}
+
+#new-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 340px;
+}
+
+#new.hide {
+    display: none;
+}
+
+#new.show {
+    display: block;
+}
+
+#add-snippet-btn {
+    background-color: var(--accent);
+    width: 344px;
+    height: 35px;
+    text-align: center;
+    padding-top: 15px;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+/* #add-snippet-btn:hover {
+    box-shadow: 0px 0px 5px rgba(0,0,0,36%);
+} */
 
 @media (prefers-color-scheme: dark) {
     :root {
