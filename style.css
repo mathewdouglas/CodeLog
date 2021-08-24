@@ -126,7 +126,7 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    border-right: 0.5px solid var(--seperator-colour);
+    /* border-right: 0.5px solid var(--seperator-colour); */
     /* border-bottom: 1px solid rgba(60, 60, 67, 36%); */
     position: fixed;
 }
