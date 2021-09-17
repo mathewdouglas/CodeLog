@@ -128,12 +128,20 @@
                 "key": "item14"
             },
             {
+                "title": "Build Bootloader",
+                "icon": "fas fa-file-alt icon fa-icon",
+                "language": "Other",
+                "content": "Compile bootloader assembly code into a binary file and then a bootable disk image to run in parallels. Then adds a second boot iso so that parallels does not give an error.",
+                "code": "nasm -f bin boot.asm -o boot.bin\n\ndd if=boot.bin of=Bootloader.iso bs=2k\n\ndd if=/dev/zero of=boot.img bs=1024 count=1440\n\ndiskutil eraseVolume MS-DOS BOOTLOADER `hdiutil attach -nomount boot.img`\n\ndd if=boot.bin of=boot.img bs=1 count=512 conv=notrunc\n",
+                "key": "item15"
+            },
+            {
                 "title": "Parallels Command",
                 "icon": "fas fa-file-alt icon fa-icon",
                 "language": "Other",
                 "content": "Used to launch parallels desktop without the network configuration error.",
                 "code": "sudo -b /Applications/Parallels\\ Desktop.app/Contents/MacOS/prl_client_app",
-                "key": "item15"
+                "key": "item16"
             }
         ]
     ]
