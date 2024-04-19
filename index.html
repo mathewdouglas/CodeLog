@@ -48,51 +48,16 @@
             <div id="tooltip" class="tooltip hide">Copied Code</div>
             
             <div id="favourites" class="hide">
-                <div id="edit-flex">
-                    <div id="edit-title">
-                        <input type="text" id="edit-input" name="Favourites">
-                    </div>
-                    <div id="edit-icons">
-                        <i class="fas fa-trash-alt delete-icon" onclick="toggleEditPane('false')"></i>
-                        <i class="fas fa-save save-icon" onclick="toggleEditPane('true')"></i>
-                        <i class="ai-cross quit-icon" onclick="toggleEditPane()"></i>
+                <div id="favourites-flex">
+                    <div id="favourites-header">
+                        <h1 id="favourites-title">Favourites</h1>
+                        <i class="ai-edit edit-icon" onclick=""></i>
                     </div>
                 </div>
-                <textarea name="description" id="edit-textarea1"></textarea>
-                <textarea name="code" id="edit-textarea2"></textarea>
-            </div>
-            
-            <div id="recents" class="hide">
-                <div id="edit-flex">
-                    <div id="edit-title">
-                        <input type="text" id="edit-input" name="title">
-                    </div>
-                    <div id="edit-icons">
-                        <i class="fas fa-trash-alt delete-icon" onclick="toggleEditPane('false')"></i>
-                        <i class="fas fa-save save-icon" onclick="toggleEditPane('true')"></i>
-                        <i class="ai-cross quit-icon" onclick="toggleEditPane()"></i>
-                    </div>
-                </div>
-                <textarea name="description" id="edit-textarea1"></textarea>
-                <textarea name="code" id="edit-textarea2"></textarea>
+                <table></table>
             </div>
 
-            <div id="search" class="hide">
-                <div id="edit-flex">
-                    <div id="edit-title">
-                        <input type="text" id="edit-input" name="title">
-                    </div>
-                    <div id="edit-icons">
-                        <i class="fas fa-trash-alt delete-icon" onclick="toggleEditPane('false')"></i>
-                        <i class="fas fa-save save-icon" onclick="toggleEditPane('true')"></i>
-                        <i class="ai-cross quit-icon" onclick="toggleEditPane()"></i>
-                    </div>
-                </div>
-                <textarea name="description" id="edit-textarea1"></textarea>
-                <textarea name="code" id="edit-textarea2"></textarea>
-            </div>
-
-            <div id="settings" class="hide">
+            <div id="edit" class="hide">
                 <div id="edit-flex">
                     <div id="edit-title">
                         <input type="text" id="edit-input" name="title">

@@ -197,6 +197,9 @@ function setContent(item, groupIndex) {
     if (showNewPane) {
         toggleNewPane();
     }
+    if (showFavouritesPane) {
+        toggleFavouritesPane();
+    }
     
     if (groupIndex != 0) {
         document.getElementById('snippet-title').innerText = item.title;
@@ -205,8 +208,9 @@ function setContent(item, groupIndex) {
     } else {
         switch (item.title) {
             case "Favourites":
-                // TODO add favourites functionality
-                
+                if (!showFavouritesPane) {
+                    toggleFavouritesPane();
+                }
                 break;
             
             case "Recents":
@@ -394,6 +398,17 @@ function toggleNewPane(save) {
         $('#new').removeClass("show");
     }
     showNewPane = !showNewPane;
+}
+
+function toggleFavouritesPane() {
+    if (!showFavouritesPane) {
+        $('#favourites').addClass("show");
+        $('#favourites').removeClass("hide");
+    } else {
+        $('#favourites').addClass("hide");
+        $('#favourites').removeClass("show");
+    }
+    showFavouritesPane = !showFavouritesPane;
 }
 
 function addJsonItem(language) {
