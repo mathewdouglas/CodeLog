@@ -12,8 +12,14 @@ const otherIcon = "fas fa-file-alt icon fa-icon"
 var sidebarGrid;
 var activeItem = "item1";
 var storage = window.localStorage;
+
 var showEdit = false;
 var showNewPane = false;
+var showFavouritesPane = false;
+var showRecentsPane = false;
+var showSearchPane = false;
+var showSettingsPane = false;
+
 var json;
 
 async function getServerJson() {
@@ -185,6 +191,13 @@ function getItemContent(id, parentID) {
 }
 
 function setContent(item, groupIndex) {
+    if (showEdit) {
+        toggleEditPane();
+    }
+    if (showNewPane) {
+        toggleNewPane();
+    }
+    
     if (groupIndex != 0) {
         document.getElementById('snippet-title').innerText = item.title;
         document.getElementById('description-block').innerText = item.content;
@@ -193,7 +206,7 @@ function setContent(item, groupIndex) {
         switch (item.title) {
             case "Favourites":
                 // TODO add favourites functionality
-                console.log(item.title);
+                
                 break;
             
             case "Recents":
@@ -201,6 +214,10 @@ function setContent(item, groupIndex) {
                 break;
 
             case "Search":
+                console.log(item.title);
+                break;
+
+            case "Settings":
                 console.log(item.title);
                 break;
             
@@ -321,7 +338,9 @@ function sortJSON() {
         var array = json.snippets[i];
         
         array.sort(function(a, b) {
-            return a.title > b.title;
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
         });
     }
 

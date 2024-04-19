@@ -4,7 +4,7 @@
             {
                 "title": "Favourites",
                 "icon": "ai-star icon",
-                "language": "",
+                "language": "System",
                 "content": "",
                 "code": "",
                 "key": "item1"
@@ -12,7 +12,7 @@
             {
                 "title": "Recents",
                 "icon": "ai-clock icon",
-                "language": "",
+                "language": "System",
                 "content": "",
                 "code": "",
                 "key": "item2"
@@ -20,7 +20,7 @@
             {
                 "title": "Search",
                 "icon": "ai-search icon",
-                "language": "",
+                "language": "System",
                 "content": "",
                 "code": "",
                 "key": "item3"
@@ -28,7 +28,7 @@
             {
                 "title": "Settings",
                 "icon": "ai-gear icon",
-                "language": "",
+                "language": "System",
                 "content": "",
                 "code": "",
                 "key": "item4"
