@@ -24,6 +24,14 @@
                 "content": "",
                 "code": "",
                 "key": "item3"
+            },
+            {
+                "title": "Settings",
+                "icon": "ai-gear icon",
+                "language": "",
+                "content": "",
+                "code": "",
+                "key": "item4"
             }
         ],
         [
@@ -33,7 +41,7 @@
                 "language": "CSS",
                 "content": "Disable scroll ability on an element.",
                 "code": "overflow: hidden;\noverflow-x: hidden;\noverflow-y: hidden;",
-                "key": "item4"
+                "key": "item5"
             },
             {
                 "title": "Hide Scrollbar",
@@ -41,7 +49,7 @@
                 "language": "CSS",
                 "content": "Hide the scrollbar across different browsers.",
                 "code": " /* Hide scrollbar for Chrome, Safari and Opera */\n.example::-webkit-scrollbar {\n    display: none;\n}\n\n/* Hide scrollbar for IE, Edge and Firefox */\n.example {\n    -ms-overflow-style: none;  /* IE and Edge */\n    scrollbar-width: none;  /* Firefox */\n} ",
-                "key": "item5"
+                "key": "item6"
             },
             {
                 "title": "Lorem Ipsum",
@@ -49,7 +57,7 @@
                 "language": "CSS",
                 "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
                 "code": "// Hello World\n    console.log('Hello, World!');\n\nfunction() {\n    // Do something\n    console.log('Do something');\n}",
-                "key": "item6"
+                "key": "item7"
             }
         ],
         [
@@ -59,7 +67,7 @@
                 "language": "HTML",
                 "content": "Emmet abbreviation for HTML boilerplate.",
                 "code": "!",
-                "key": "item7"
+                "key": "item8"
             }
         ],
         [
@@ -69,7 +77,7 @@
                 "language": "Java",
                 "content": "Displays text in a JOptionPane. Requires the JOptionPane package to be imported to use this code.",
                 "code": "JOptionPane.showMessageDialog(null, \"Hello, World!\");",
-                "key": "item8"
+                "key": "item9"
             }
         ],
         [
@@ -79,7 +87,7 @@
                 "language": "JavaScript",
                 "content": "Gets the value of the selected item in an HTML drop down list.",
                 "code": "var element = document.getElementById(\"DDList\");\nvar choice = element.value;",
-                "key": "item9"
+                "key": "item10"
             },
             {
                 "title": "On Click",
@@ -87,7 +95,7 @@
                 "language": "JavaScript",
                 "content": "The simplest way to add an onclick function to an element programmatically using vanilla JavaScript",
                 "code": "element.onclick = function() { \n   alert('blah');\n};\n",
-                "key": "item10"
+                "key": "item11"
             }
         ],
         [
@@ -97,7 +105,7 @@
                 "language": "Python",
                 "content": "Display text in the console",
                 "code": "print('Hello, World!')",
-                "key": "item11"
+                "key": "item12"
             }
         ],
         [
@@ -107,7 +115,7 @@
                 "language": "Swift",
                 "content": "A view is the most basic element in a SwiftUI application. It can be thought of similarly to a div in HTML except that every element in SwiftUI is a view.",
                 "code": "struct MyView: View {\n    var body: some View {\n        Text(\"Hello, World!\")\n    }\n}",
-                "key": "item12"
+                "key": "item13"
             }
         ],
         [
@@ -117,7 +125,7 @@
                 "language": "Other",
                 "content": "Used to run Bochs emulator using the bochsrc configuration text file.",
                 "code": "bochs -f bochsrc.txt",
-                "key": "item13"
+                "key": "item14"
             },
             {
                 "title": "Bochs Config",
@@ -125,7 +133,7 @@
                 "language": "Other",
                 "content": "The setup for the bochs config file used to boot custom bootloader.",
                 "code": "megs: 32\nromimage: file=/usr/local/Cellar/bochs/2.7/share/bochs/BIOS-bochs-latest, address=0xfffe0000\nvgaromimage: file=/usr/local/Cellar/bochs/2.7/share/bochs/VGABIOS-lgpl-latest\nfloppya: 1_44=boot.com, status=inserted\nboot: a\nlog: bochsout.txt\nmouse: enabled=0\ndisplay_library: sdl2, options=\"autoscale\"",
-                "key": "item14"
+                "key": "item15"
             },
             {
                 "title": "Build Bootloader",
@@ -133,7 +141,7 @@
                 "language": "Other",
                 "content": "Compile bootloader assembly code into a binary file and then a bootable disk image to run in parallels. Then adds a second boot iso so that parallels does not give an error.",
                 "code": "nasm -f bin boot.asm -o boot.bin\n\ndd if=boot.bin of=Bootloader.iso bs=2k\n\ndd if=/dev/zero of=boot.img bs=1024 count=1440\n\ndiskutil eraseVolume MS-DOS BOOTLOADER `hdiutil attach -nomount boot.img`\n\ndd if=boot.bin of=boot.img bs=1 count=512 conv=notrunc\n",
-                "key": "item15"
+                "key": "item16"
             },
             {
                 "title": "Parallels Command",
@@ -141,7 +149,7 @@
                 "language": "Other",
                 "content": "Used to launch parallels desktop without the network configuration error.",
                 "code": "sudo -b /Applications/Parallels\\ Desktop.app/Contents/MacOS/prl_client_app",
-                "key": "item16"
+                "key": "item17"
             }
         ]
     ]
