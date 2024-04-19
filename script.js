@@ -1,13 +1,15 @@
-const favouritesIcon = "ai-star icon";
-const recentsIcon = "ai-clock icon";
-const searchIcon = "ai-search icon";
-const cssIcon = "ai-hashtag icon blue";
-const jsIcon = "fab fa-js-square icon fa-icon gold"
-const htmlIcon = "ai-html-fill icon orange";
-const swiftIcon = "fab fa-swift icon fa-icon orange";
-const pythonIcon = "ai-python-fill icon green";
-const javaIcon = "fab fa-java icon fa-icon orange";
-const otherIcon = "fas fa-file-alt icon fa-icon"
+const icons = {
+    "Favourites": "ai-star icon",
+    "Recents": "ai-clock icon",
+    "Search": "ai-search icon",
+    "CSS": "ai-hashtag icon blue",
+    "JavaScript": "fab fa-js-square icon fa-icon gold",
+    "HTML": "ai-html-fill icon orange",
+    "Swift": "fab fa-swift icon fa-icon orange",
+    "Python": "ai-python-fill icon green",
+    "Java": "fab fa-java icon fa-icon orange",
+    "Other": "fas fa-file-alt icon fa-icon"
+};
 
 var sidebarGrid;
 var activeItem = "item1";
@@ -15,10 +17,7 @@ var storage = window.localStorage;
 
 var showEdit = false;
 var showNewPane = false;
-var showFavouritesPane = false;
-var showRecentsPane = false;
-var showSearchPane = false;
-var showSettingsPane = false;
+var currentPane = null;
 
 var json;
 
@@ -163,7 +162,7 @@ function scrollFunction() {
     }
 }
 
-// Searches the JSON for the onject that matches the gievn criteria eg
+// Searches the JSON for the object that matches the given criteria eg
 function getItemContent(id, parentID) {
     
     if (parentID === "sidebar-grid") {
@@ -190,43 +189,37 @@ function getItemContent(id, parentID) {
     setContent(item, groupIndex);
 }
 
+var currentPane = null;
+
 function setContent(item, groupIndex) {
+    // Close any open panes if editing or creating new content
     if (showEdit) {
         toggleEditPane();
     }
     if (showNewPane) {
         toggleNewPane();
     }
-    if (showFavouritesPane) {
-        toggleFavouritesPane();
+    
+    // Close the currently open pane if another pane is selected
+    if (currentPane !== null) {
+        togglePane(currentPane);
+        currentPane = null;
     }
     
+    // If the item belongs to a group, display its content
     if (groupIndex != 0) {
         document.getElementById('snippet-title').innerText = item.title;
         document.getElementById('description-block').innerText = item.content;
         document.getElementById('code').innerText = item.code;
     } else {
-        switch (item.title) {
-            case "Favourites":
-                if (!showFavouritesPane) {
-                    toggleFavouritesPane();
-                }
-                break;
-            
-            case "Recents":
-                console.log(item.title);
-                break;
-
-            case "Search":
-                console.log(item.title);
-                break;
-
-            case "Settings":
-                console.log(item.title);
-                break;
-            
-            default:
-                console.log("Error");
+        // If the item is a pane, toggle its visibility
+        if (item.title in { "Favourites": 1, "Recents": 1, "Search": 1, "Settings": 1 }) {
+            if (currentPane !== item.title) {
+                togglePane(item.title);
+                currentPane = item.title;
+            }
+        } else {
+            console.log("Error: Invalid item");
         }
     }
 }
@@ -400,15 +393,14 @@ function toggleNewPane(save) {
     showNewPane = !showNewPane;
 }
 
-function toggleFavouritesPane() {
-    if (!showFavouritesPane) {
-        $('#favourites').addClass("show");
-        $('#favourites').removeClass("hide");
+function togglePane(paneId) {
+    var showPane = window['show' + paneId + 'Pane'];
+    if (!showPane) {
+        $('#' + paneId.toLowerCase()).addClass("show").removeClass("hide");
     } else {
-        $('#favourites').addClass("hide");
-        $('#favourites').removeClass("show");
+        $('#' + paneId.toLowerCase()).addClass("hide").removeClass("show");
     }
-    showFavouritesPane = !showFavouritesPane;
+    window['show' + paneId + 'Pane'] = !showPane;
 }
 
 function addJsonItem(language) {

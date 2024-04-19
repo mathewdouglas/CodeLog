@@ -213,7 +213,7 @@ p {
     margin: 97px 0 0 var(--snippet-padding-left);
 }
 
-#main-header, #favourites-header {
+#main-header, #favourites-header, #recents-header, #search-header, #settings-header {
     height: 54px;
     display: flex;
     flex-direction: row;
@@ -221,7 +221,7 @@ p {
     border-bottom: 1px solid var(--seperator-light);
 }
 
-#snippet-title, #favourites-title {
+#snippet-title, #favourites-title, #recents-title, #search-title, #settings-title {
     margin: 0;
 }
 
@@ -307,11 +307,11 @@ p {
     scrollbar-width: none;
 }
 
-#edit.hide, #favourites.hide {
+.hide {
     visibility: hidden;
 }
 
-#edit.show, #favourites.show {
+.show  {
     visibility: visible;
 }
 
@@ -321,7 +321,7 @@ p {
     justify-content: space-between;
 }
 
-#edit-title, #favourites-title {
+#edit-title, #favourites-title, #recents-title, #search-title, #settings-title {
     /* border: 0.5px solid var(--seperator-light); */
     border-radius: 10px;
 }
@@ -431,7 +431,7 @@ p {
 
 /* New Pane */
 
-#new, #favourites {
+#new, #favourites, #recents, #search, #settings {
     position: absolute;
     min-height: 80vh;
     height: auto;
