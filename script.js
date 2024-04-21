@@ -1,7 +1,11 @@
 const icons = {
     "Favourites": "ai-star icon",
+    "Selector": "ai-two-line-horizontal icon",
     "Recents": "ai-clock icon",
     "Search": "ai-search icon",
+    "Settings": "ai-gear icon",
+    "Toggle-Off": "ai-toggle-off-fill icon",
+    "Toggle-On": "ai-toggle-on-fill icon",
     "CSS": "ai-hashtag icon blue",
     "JavaScript": "fab fa-js-square icon fa-icon gold",
     "HTML": "ai-html-fill icon orange",
@@ -10,6 +14,10 @@ const icons = {
     "Java": "fab fa-java icon fa-icon orange",
     "Other": "fas fa-file-alt icon fa-icon"
 };
+
+const SIDEBAR_GRID_ID = "sidebar-grid";
+const SIDEBAR_HEADER_ID = "sidebar-header";
+const HEADER_TITLE_ID = "header-title";
 
 var sidebarGrid;
 var activeItem = "item1";
@@ -30,13 +38,32 @@ window.onload = function() {
     if (storageAvailable()) {
         checkLocalStorage();
     }
-    sidebarGrid = document.getElementById("sidebar-grid");
+    sidebarGrid = document.getElementById(SIDEBAR_GRID_ID);
     // console.log(sidebarGrid);
     sidebarGrid.onscroll = function () {
         scrollFunction();
     };
 
+    let localTimestamp = getLocalTimestamp();
+    console.log("Logged in: " + localTimestamp); // Outputs something like "2022-01-01T00:00:00"
+
     checkGroup();
+}
+
+function getLocalTimestamp() {
+    let date = new Date();
+
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+    let day = date.getDate().toString().padStart(2, '0');
+
+    let hours = date.getHours().toString().padStart(2, '0');
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+    let seconds = date.getSeconds().toString().padStart(2, '0');
+
+    updateRecents();
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
 // Checks if browser has localStorage enabled
@@ -101,6 +128,8 @@ function initSidebarItems(data) {
     });
 
     // document.get
+
+    var favouritesList = document.getElementById('favourites-list');
     
     for (let i = 1; i < json.snippets.length; i++) {
         var array = json.snippets[i];
@@ -109,6 +138,9 @@ function initSidebarItems(data) {
         
         array.forEach(snippet => {
             addItem(snippet.icon, snippet.title, itemCount++);
+            var listItem = document.createElement('li');
+            listItem.textContent = snippet.title; // Assuming the title of the snippet is stored in the 'title' property
+            favouritesList.appendChild(listItem);
         });
     }
 
@@ -211,6 +243,7 @@ function setContent(item, groupIndex) {
         document.getElementById('snippet-title').innerText = item.title;
         document.getElementById('description-block').innerText = item.content;
         document.getElementById('code').innerText = item.code;
+        document.getElementById('copy-button').dataset.key = item.key;
     } else {
         // If the item is a pane, toggle its visibility
         if (item.title in { "Favourites": 1, "Recents": 1, "Search": 1, "Settings": 1 }) {
@@ -224,7 +257,7 @@ function setContent(item, groupIndex) {
     }
 }
 
-// Changes the active sidebar item
+// Changes the active item in the sidebar
 function changeActive(id) {
     const selectedItem = document.getElementById(id);
     activeItem = id;
@@ -310,6 +343,23 @@ function copyText() {
     // Copy the text inside the text field 
     navigator.clipboard.writeText(text.innerText);
 
+    // Get the key of the snippet from the data attribute of the copy button
+    var key = document.getElementById("copy-button").dataset.key;
+
+    // Find the snippet in the JSON data and update its last_used_at field
+    for (let i = 0; i < json.snippets.length; i++) {
+        for (let j = 0; j < json.snippets[i].length; j++) {
+            if (json.snippets[i][j].key === key) {
+                json.snippets[i][j].last_used_timestamp = getLocalTimestamp();
+                console.log("Last used updated");
+                break;
+            }
+        }
+    }
+
+    updateRecents();
+    updateLocalStorage();
+
     showTooltip(3000);
   
     // Alert the copied text
@@ -329,6 +379,7 @@ function checkGroup() {
     // console.log(catagories.indexOf("HTML"));
 }
 
+// Sorts the JSON object by snippet titles
 function sortJSON() {
     var len = json.snippets.length;
     for (let i = 1; i < len; i++) {
@@ -355,6 +406,7 @@ function sortJSON() {
     updateLocalStorage();
 }
 
+// Toggles the visibility of the edit pane
 function toggleEditPane(save) {
     if (!showEdit) {
         $('#edit').addClass("show");
@@ -378,6 +430,7 @@ function toggleEditPane(save) {
     showEdit = !showEdit;
 }
 
+// Toggles the visibility of the new pane
 function toggleNewPane(save) {
     if (!showNewPane) {
         $('#new').addClass("show");
@@ -393,19 +446,67 @@ function toggleNewPane(save) {
     showNewPane = !showNewPane;
 }
 
+// Toggles the visibility of a pane
 function togglePane(paneId) {
-    var showPane = window['show' + paneId + 'Pane'];
-    if (!showPane) {
-        $('#' + paneId.toLowerCase()).addClass("show").removeClass("hide");
-    } else {
-        $('#' + paneId.toLowerCase()).addClass("hide").removeClass("show");
-    }
-    window['show' + paneId + 'Pane'] = !showPane;
+    document.getElementById(paneId.toLowerCase()).classList.toggle('hide');
+    document.getElementById(paneId.toLowerCase()).classList.toggle('show');
 }
 
+// Event listener for the search bar
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('search-input');
+    var searchList = document.getElementById('search-list');
+     
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            var searchQuery = e.target.value.toLowerCase();
+            var listItems = document.querySelectorAll('#favourites-list li');
+            searchList.innerHTML = '';
+            
+            // If the search query is not empty, search for matching snippets
+            if (searchQuery.length > 0) {
+                listItems.forEach(function(item) {
+                    var itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchQuery)) {
+                        var listItem = document.createElement('li');
+                        listItem.textContent = item.textContent; // Assuming the title of the snippet is stored in the 'title' property
+                        searchList.appendChild(listItem);
+                    }
+                });
+            }
+        });
+    }
+});
+
+function updateRecents() {
+    var recentsList = document.getElementById('recents-list');
+    recentsList.innerHTML = '';
+
+    //get the 5 most recently used snippets and append them to the recents list
+    let recents = json.snippets.flat().filter(function(item) {
+        return item.last_used_timestamp !== "" && item.last_used_timestamp !== undefined;
+    });
+
+    console.log(recents);
+
+    recents.sort(function(a, b) {
+        return new Date(b.last_used_timestamp) - new Date(a.last_used_timestamp);
+    });
+
+    recents = recents.slice(0, 5);
+
+    recents.forEach(function(item) {
+        var listItem = document.createElement('li');
+        listItem.textContent = item.title; // Assuming the title of the snippet is stored in the 'title' property
+        recentsList.appendChild(listItem);
+    });
+}
+
+// Adds a new item to the JSON object
 function addJsonItem(language) {
     var array = json.snippets;
     var icon = getIcon(language);
+    let localTimestamp = getLocalTimestamp();
 
     for (let i = 0; i < array.length; i++) {
         const element = array[i];
@@ -416,7 +517,9 @@ function addJsonItem(language) {
                 "language": language,
                 "content": "Enter description",
                 "code": "Enter code",
-                "key": ""
+                "key": "",
+                "created_timestamp": localTimestamp,
+                "last_used_timestamp": ""
             });
         }
     }

@@ -41,7 +41,7 @@
                     <p id="description-block" contenteditable="false" spellcheck="false" class="description"></p>
                     <div id="code-block">
                         <pre><p id="code" class="code"></p></pre>
-                        <i class="ai-copy copy-icon" onclick="copyText()"></i>
+                        <i id="copy-button" data-="" class="ai-copy copy-icon" onclick="copyText()"></i>
                     </div>
                 </div>
             </div>
@@ -54,12 +54,7 @@
                         <i class="ai-edit edit-icon" onclick=""></i>
                     </div>
                 </div>
-                <ul id="favourites-list">
-                    <li>Test</li>
-                    <li>Test</li>
-                    <li>Test</li>
-                    <li>Test</li>
-                </ul>
+                <ul id="favourites-list"></ul>
             </div>
 
             <div id="recents" class="hide">
@@ -69,7 +64,7 @@
                         <i class="edit-icon" onclick=""></i>
                     </div>
                 </div>
-                <table></table>
+                <ul id="recents-list"></ul>
             </div>
 
             <div id="search" class="hide">
@@ -79,7 +74,8 @@
                         <i class="edit-icon" onclick=""></i>
                     </div>
                 </div>
-                <input type="text" id="search-bar" name="title">
+                <input type="text" id="search-input" name="title" placeholder="Search for a Snippet">
+                <ul id="search-list"></ul>
             </div>
 
             <div id="settings" class="hide">
