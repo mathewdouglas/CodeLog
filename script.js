@@ -487,8 +487,6 @@ function updateRecents() {
         return item.last_used_timestamp !== "" && item.last_used_timestamp !== undefined;
     });
 
-    console.log(recents);
-
     recents.sort(function(a, b) {
         return new Date(b.last_used_timestamp) - new Date(a.last_used_timestamp);
     });

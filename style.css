@@ -515,6 +515,11 @@ p {
     border-bottom: 1px solid var(--seperator-colour);
 }
 
+#favourites-list li:hover, #search-list li:hover, #recents-list li:hover {
+    background-color: var(--seperator-light);
+    cursor: pointer;
+}
+
 #favourites-list li:last-child, #search-list li:last-child, #recents-list li:last-child {
     border-bottom: none;
 }
