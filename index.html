@@ -61,7 +61,10 @@
                 <div id="recents-flex">
                     <div id="recents-header">
                         <h1 id="recents-title">Recents</h1>
-                        <i class="edit-icon" onclick=""></i>
+                        <select id="sort-select" onchange="sortRecents(this.value)">
+                            <option value="last-used">Sort by Last Used</option>
+                            <option value="creation">Sort by Date Created</option>
+                        </select>
                     </div>
                 </div>
                 <ul id="recents-list"></ul>

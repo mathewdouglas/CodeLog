@@ -26,6 +26,7 @@ var storage = window.localStorage;
 var showEdit = false;
 var showNewPane = false;
 var currentPane = null;
+var sortOption = "last-used";
 
 var json;
 
@@ -48,8 +49,12 @@ window.onload = function() {
     console.log("Logged in: " + localTimestamp); // Outputs something like "2022-01-01T00:00:00"
 
     checkGroup();
+    
+    // Call updateRecents() once a minute
+    setInterval(updateRecents, 60 * 1000);
 }
 
+// Returns the current date and time in the format "YYYY-MM-DDTHH:MM:SS"
 function getLocalTimestamp() {
     let date = new Date();
 
@@ -64,6 +69,33 @@ function getLocalTimestamp() {
     updateRecents();
 
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
+// Returns a string representing the time elapsed since the given date
+function timeAgo(date) {
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+
+    if (interval > 1) {
+        return Math.floor(interval) + " years ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
 }
 
 // Checks if browser has localStorage enabled
@@ -139,7 +171,9 @@ function initSidebarItems(data) {
         array.forEach(snippet => {
             addItem(snippet.icon, snippet.title, itemCount++);
             var listItem = document.createElement('li');
-            listItem.textContent = snippet.title; // Assuming the title of the snippet is stored in the 'title' property
+            listItem.textContent = snippet.title;
+            listItem.dataset.key = snippet.key;
+            listItem.onclick = function() { changeActive(snippet.key) };
             favouritesList.appendChild(listItem);
         });
     }
@@ -220,8 +254,6 @@ function getItemContent(id, parentID) {
     // console.log(item);
     setContent(item, groupIndex);
 }
-
-var currentPane = null;
 
 function setContent(item, groupIndex) {
     // Close any open panes if editing or creating new content
@@ -470,6 +502,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (itemText.includes(searchQuery)) {
                         var listItem = document.createElement('li');
                         listItem.textContent = item.textContent; // Assuming the title of the snippet is stored in the 'title' property
+                        listItem.dataset.key = item.dataset.key;
+                        listItem.onclick = function() { changeActive(item.dataset.key) };
                         searchList.appendChild(listItem);
                     }
                 });
@@ -478,6 +512,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function sortRecents(sortBy) {
+    sortOption = sortBy;
+
+    // Update the recents pane
+    updateRecents();
+}
+
+// Refreshes and populates the recents list
 function updateRecents() {
     var recentsList = document.getElementById('recents-list');
     recentsList.innerHTML = '';
@@ -487,15 +529,41 @@ function updateRecents() {
         return item.last_used_timestamp !== "" && item.last_used_timestamp !== undefined;
     });
 
-    recents.sort(function(a, b) {
-        return new Date(b.last_used_timestamp) - new Date(a.last_used_timestamp);
-    });
+    // Sorts the recents array based on the selected sort option
+    if (sortOption === 'last-used') {
+        // Sorts the recents array by last_used_timestamp
+        recents.sort(function(a, b) {
+            return new Date(b.last_used_timestamp) - new Date(a.last_used_timestamp);
+        });
+    } else if (sortOption === 'creation') {
+        //Sorts the recents array by created_timestamp
+        recents.sort(function(a, b) {
+            return new Date(b.created_timestamp) - new Date(a.created_timestamp);
+        });
+    }
 
+    // Limits the recents array to the 5 most recent snippets
     recents = recents.slice(0, 5);
 
+    // Creates a list item (li) for each recent snippet
     recents.forEach(function(item) {
         var listItem = document.createElement('li');
-        listItem.textContent = item.title; // Assuming the title of the snippet is stored in the 'title' property
+        var lastUsed = null;
+        
+        listItem.classList.add('item-container');
+        
+        if (sortOption === 'last-used') {
+            lastUsed = timeAgo(new Date(item.last_used_timestamp));
+        } else if (sortOption === 'creation') {
+            lastUsed = timeAgo(new Date(item.created_timestamp));
+        }
+
+        listItem.innerHTML = `
+            <span class="recents-text">${item.title}</span>
+            <span class="timestamp">${lastUsed}</span>
+        `;
+        listItem.dataset.key = item.key;
+        listItem.onclick = function() { changeActive(item.key) };
         recentsList.appendChild(listItem);
     });
 }
